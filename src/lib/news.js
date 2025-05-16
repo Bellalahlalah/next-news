@@ -22,9 +22,9 @@ export function getAvailableNewsMonths(year) {
   return DUMMY_NEWS.reduce((months, news) => {
     const newsYear = new Date(news.date).getFullYear();
     if (newsYear === +year) {
-      const month = new Date(news.date).getMonth();
+      const month = new Date(news.date).getMonth() + 1;
       if (!months.includes(month)) {
-        months.push(month + 1);
+        months.push(month);
       }
     }
     return months;
@@ -43,4 +43,22 @@ export function getNewsForYearAndMonth(year, month) {
     const newsMonth = new Date(news.date).getMonth() + 1;
     return newsYear === +year && newsMonth === +month;
   });
+}
+
+export function addNews(newsItem) {
+  DUMMY_NEWS.splice(0, 0, newsItem);
+}
+
+export function updateNews(id, newData) {
+  const index = DUMMY_NEWS.findIndex((item) => item.id === id);
+  if (index !== -1) {
+    DUMMY_NEWS[index] = { ...DUMMY_NEWS[index], ...newData };
+  }
+}
+
+export function deleteNews(id) {
+  const index = DUMMY_NEWS.findIndex((item) => item.id === id);
+  if (index !== -1) {
+    DUMMY_NEWS.splice(index, 1);
+  }
 }
