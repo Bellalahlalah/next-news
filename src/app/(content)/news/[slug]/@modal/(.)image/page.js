@@ -1,25 +1,25 @@
 'use client';
 
-import { DUMMY_NEWS } from '@/data/dummy-news';
+import ModalBackdrop from '@/components/modal-backdrop';
+import { getNewsItem } from '@/lib/news'; // ฟังก์ชันที่ใช้ดึงข้อมูลข่าวจากฐานข้อมูล
 import { notFound } from 'next/navigation';
-import { useRouter } from 'next/navigation';  
 import { use } from 'react';    
 
-export default function ImagePage({ params }) {
-  const router = useRouter();
+export default async function ImagePage({ params }) {
   const {slug} = use(params);
-  const newsItem = DUMMY_NEWS.find(item => item.slug === slug);
+  const newsItem = await getNewsItem(slug); // ฟังก์ชันที่ใช้ดึงข้อมูลข่าวจากฐานข้อมูล
 
   if (!newsItem) notFound();
 
   return (
-      <div className="modal-backdrop" onClick={router.back}>
+    <>
+      <ModalBackdrop/>
         <dialog open className="modal" onClick={(e) => e.stopPropagation()}>
           <img
               src={`/images/news/${newsItem.image}`}
               alt={newsItem.title}
           />
         </dialog>
-      </div>
+      </>
   );
 }

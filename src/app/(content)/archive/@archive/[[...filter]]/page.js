@@ -16,14 +16,14 @@ export default async function ArchiveFilterPage({ params }) {
     selectedMonth = filter[1];
   }
 
-  const availableYears = getAvailableNewsYears();
-  if (selectedYear && !availableYears.includes(+selectedYear)) {
+  const availableYears = await getAvailableNewsYears();
+  if (selectedYear && !availableYears.includes(selectedYear)) {
     throw new Error('Invalid year selected');
   }
 
   if (selectedMonth) {
     const availableMonths = getAvailableNewsMonths(selectedYear);
-    if (!availableMonths.includes(+selectedMonth)) {
+    if (!availableMonths.includes(selectedMonth)) {
       throw new Error('Invalid month selected');
     }
   }
@@ -31,7 +31,7 @@ export default async function ArchiveFilterPage({ params }) {
   let links = [];
     if (!selectedYear) {
     // ยังไม่เลือกปี → แสดงลิงก์รายปีทั้งหมด
-    links = getAvailableNewsYears().map(year => ({
+    links = (await getAvailableNewsYears()).map(year => ({
         label: year,
         href: `/archive/${year}`,
     }));
@@ -47,9 +47,9 @@ export default async function ArchiveFilterPage({ params }) {
   let news;
 
   if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
+    news = await getNewsForYear(selectedYear);
   } else if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
+    news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
   }
 
   let newsContent = <p>No news found for the selected period.</p>;

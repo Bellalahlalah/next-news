@@ -1,9 +1,8 @@
-import { DUMMY_NEWS } from '@/data/dummy-news';
 import { notFound } from 'next/navigation';
 
 export default async function ImagePage({ params }) {
   const {slug} = await params;
-  const newsItem = DUMMY_NEWS.find(item => item.slug === slug);
+  const newsItem = await getNewsItem(params.slug); // ฟังก์ชันที่ใช้ดึงข้อมูลข่าวจากฐานข้อมูล
 
   if (!newsItem) notFound();
 

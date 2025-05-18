@@ -1,5 +1,5 @@
 export const DUMMY_NEWS = [
-    {
+  {
     id: 'n3',
     slug: 'bimstec-leaders-sign-agreements',
     title: '7 ผู้นำบิมสเทค ลงนามเอกสาร 6 ฉบับ ชู วิสัยทัศน์กรุงเทพฯ',
@@ -31,8 +31,6 @@ export const DUMMY_NEWS = [
     date: '2025-03-02',
     content: 'ลิซ่า สมาชิกวง BLACKPINK ได้สร้างประวัติศาสตร์ด้วยการแสดงสุดพิเศษบนเวทีออสการ์ ครั้งที่ 97'
   },
-
-
   {
     id: 'n5',
     slug: 'gene-hackman-passes-away',
